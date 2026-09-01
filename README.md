@@ -127,14 +127,14 @@ plt.show()
 
 ## 3. How well do jobs and skills pay for Data Analysts?
 
-To identify the highest-paying roles and skills, I only got jobs in the United States and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most. 
+To identify the highest-paying roles and skills, I only got jobs in Israel and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most. 
 
 View my notebook with detailed steps here: [4_Salary_Analysis](4_Salary_Analysis.ipynb).
 
 #### Visualize Data 
 
 ```python
-sns.boxplot(data=df_US_top6, x='salary_year_avg', y='job_title_short', order=job_order)
+sns.boxplot(data=df_country_top, x='salary_year_avg', y='job_title_short', order=job_order)
 
 ticks_x = plt.FuncFormatter(lambda y, pos: f'${int(y/1000)}K')
 plt.gca().xaxis.set_major_formatter(ticks_x)
@@ -144,14 +144,14 @@ plt.show()
 
 #### Results
 
-![Salary Distributions of Data Jobs in the IL](images/Salary_Distributions_of_Data_Jobs_in_the_US.png)  
-*Box plot visualizing the salary distributions for the top 6 data job titles.*
+![Salary Distributions of Data Jobs in the IL](03_Project/images/salary_distribution_of_IL_data_jobs.png)  
+*Box plot visualizing the salary distributions for the Data Analyst/Scientist/Engineer and their respective Senior job titles.*
 
 #### Insights
 
 - There's a significant variation in salary ranges across different job titles. Senior Data Scientist positions tend to have the highest salary potential, with up to $600K, indicating the high value placed on advanced data skills and experience in the industry.
 
-- Senior Data Engineer and Senior Data Scientist roles show a considerable number of outliers on the higher end of the salary spectrum, suggesting that exceptional skills or circumstances can lead to high pay in these roles. In contrast, Data Analyst roles demonstrate more consistency in salary, with fewer outliers.
+- The Israel data sample size is that of a few hundreds, causing the data to hardly have any outliers, as it is not diverse enough. This is important to take into account (for any relatively small country/job market, for that matter).
 
 - The median salaries increase with the seniority and specialization of the roles. Senior roles (Senior Data Scientist, Senior Data Engineer) not only have higher median salaries but also larger differences in typical salaries, reflecting greater variance in compensation as responsibilities increase.
 
@@ -166,10 +166,10 @@ Next, I narrowed my analysis and focused only on data analyst roles. I looked at
 fig, ax = plt.subplots(2, 1)  
 
 # Top 10 Highest Paid Skills for Data Analysts
-sns.barplot(data=df_DA_top_pay, x='median', y=df_DA_top_pay.index, hue='median', ax=ax[0], palette='dark:b_r')
+sns.barplot(data=df_country_da_top_pay, x='median', y=df_country_da_top_pay.index, hue='median', ax=ax[0], palette='dark:b_r')
 
 # Top 10 Most In-Demand Skills for Data Analystsr')
-sns.barplot(data=df_DA_skills, x='median', y=df_DA_skills.index, hue='median', ax=ax[1], palette='light:b')
+sns.barplot(data=df_country_da_skills, x='median', y=df_country_da_skills.index, hue='median', ax=ax[1], palette='light:b')
 
 plt.show()
 
@@ -178,16 +178,16 @@ plt.show()
 #### Results
 Here's the breakdown of the highest-paid & most in-demand skills for data analysts in Israel:
 
-![The Highest Paid & Most In-Demand Skills for Data Analysts in Israel](images/Highest_Paid_and_Most_In_Demand_Skills_for_Data_Analysts_in_the_US.png)
+![The Highest Paid & Most In-Demand Skills for Data Analysts in Israel](03_Project/images/highest_paid_and_most_in_demand_data_skills_in_IL.png)
 *Two separate bar graphs visualizing the highest paid skills and most in-demand skills for data analysts in IL.*
 
 #### Insights:
 
-- The top graph shows specialized technical skills like `dplyr`, `Bitbucket`, and `Gitlab` are associated with higher salaries, some reaching up to $200K, suggesting that advanced technical proficiency can increase earning potential.
+- The top graph shows specialized technical skills like `gdpr`, `snowflake`, or `elasticsearch` are associated with higher salaries, some reaching up to $100K, however these are based on a single-digit sample size (huge caveat).
 
-- The bottom graph highlights that foundational skills like `Excel`, `PowerPoint`, and `SQL` are the most in-demand, even though they may not offer the highest salaries. This demonstrates the importance of these core skills for employability in data analysis roles.
+- The bottom graph highlights that foundational skills like `Excel`, `Looker`, and `AWS` are the most in-demand, even though they may not offer the highest salaries. This demonstrates the importance of these core skills for employability in data analysis roles.
 
-- There's a clear distinction between the skills that are highest paid and those that are most in-demand. Data analysts aiming to maximize their career potential should consider developing a diverse skill set that includes both high-paying specialized skills and widely demanded foundational skills.
+- Note that once again, due to the small sample size - more specifically 10 different skills, along with the fact that we've chosen to display top 10 records, means that there is some overlap. That overlap is examplified b the fact the the 2 charts are not laid "nicely" one on top of the other. In other words: the top records of the bottom chart my be higher in value than the bottom records of the top chart.
 
 ## 4. What are the most optimal skills to learn for Data Analysts?
 
