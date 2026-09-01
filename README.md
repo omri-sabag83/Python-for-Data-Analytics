@@ -84,7 +84,7 @@ plt.show()
 
 ### Results
 
-![Likelihood of Skills Requested in the US Job Postings](03_Project/images/top_skills_likelihood_in_IL_job_postings.png)
+![Likelihood of Skills Requested in the IL Job Postings](03_Project/images/top_skills_likelihood_in_IL_job_postings.png)
 
 *Bar graph visualizing the salary for the top X data roles and their top Y skills associated with each.*
 
@@ -96,7 +96,7 @@ plt.show()
 
 ## 2. How are in-demand skills trending for Data Analysts?
 
-To find how skills are trending in 2023 for Data Analysts, I filtered data analyst positions and grouped the skills by the month of the job postings. This got me the top 5 skills of data analysts by month, showing how popular skills were throughout 2023.
+To find how skills are trending in 2023 for Data Analysts, I filtered data analyst positions and grouped the skills by the month of the job postings. This got me the top skills of data analysts by month, showing how popular skills were throughout 2023.
 
 View my notebook with detailed steps here: [3_Skills_Trend](3_Skills_Trend.ipynb).
 
@@ -106,7 +106,7 @@ View my notebook with detailed steps here: [3_Skills_Trend](3_Skills_Trend.ipynb
 
 from matplotlib.ticker import PercentFormatter
 
-df_plot = df_DA_US_percent.iloc[:, :5]
+df_plot = df_country_percent.iloc[:, :top_n_skills]
 sns.lineplot(data=df_plot, dashes=False, legend='full', palette='tab10')
 
 plt.gca().yaxis.set_major_formatter(PercentFormatter(decimals=0))
@@ -117,13 +117,13 @@ plt.show()
 
 ### Results
 
-![Trending Top Skills for Data Analysts in the US](images/Trending_Top_Skills_for_Data_Analysts_in_the_US.png)  
-*Bar graph visualizing the trending top skills for data analysts in the US in 2023.*
+![Trending Top Skills for Data Analysts in Israel](03_Project/images/trending_top_skills_for_data_analysts_in_IL.png)  
+*Bar graph visualizing the trending top skills for data analysts in IL in 2023.*
 
 ### Insights:
-- SQL remains the most consistently demanded skill throughout the year, although it shows a gradual decrease in demand.
-- Excel experienced a significant increase in demand starting around September, surpassing both Python and Tableau by the end of the year.
-- Both Python and Tableau show relatively stable demand throughout the year with some fluctuations but remain essential skills for data analysts. Power BI, while less demanded compared to the others, shows a slight upward trend towards the year's end.
+- SQL remains the most consistently demanded skill throughout the year, remaining consistent overall.
+- Python coming in as a strong 2nd in demand, trending around the 50% mark.
+- Excel and Tableau trade places quite a few times over the past year, though remain quite similar in demand.
 
 ## 3. How well do jobs and skills pay for Data Analysts?
 
@@ -144,7 +144,7 @@ plt.show()
 
 #### Results
 
-![Salary Distributions of Data Jobs in the US](images/Salary_Distributions_of_Data_Jobs_in_the_US.png)  
+![Salary Distributions of Data Jobs in the IL](images/Salary_Distributions_of_Data_Jobs_in_the_US.png)  
 *Box plot visualizing the salary distributions for the top 6 data job titles.*
 
 #### Insights
@@ -176,10 +176,10 @@ plt.show()
 ```
 
 #### Results
-Here's the breakdown of the highest-paid & most in-demand skills for data analysts in the US:
+Here's the breakdown of the highest-paid & most in-demand skills for data analysts in Israel:
 
-![The Highest Paid & Most In-Demand Skills for Data Analysts in the US](images/Highest_Paid_and_Most_In_Demand_Skills_for_Data_Analysts_in_the_US.png)
-*Two separate bar graphs visualizing the highest paid skills and most in-demand skills for data analysts in the US.*
+![The Highest Paid & Most In-Demand Skills for Data Analysts in Israel](images/Highest_Paid_and_Most_In_Demand_Skills_for_Data_Analysts_in_the_US.png)
+*Two separate bar graphs visualizing the highest paid skills and most in-demand skills for data analysts in IL.*
 
 #### Insights:
 
@@ -208,8 +208,8 @@ plt.show()
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in the US](images/Most_Optimal_Skills_for_Data_Analysts_in_the_US.png)    
-*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in the US.*
+![Most Optimal Skills for Data Analysts in the Israel](images/Most_Optimal_Skills_for_Data_Analysts_in_the_US.png)    
+*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in IL.*
 
 #### Insights:
 
@@ -243,8 +243,8 @@ plt.show()
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in the US with Coloring by Technology](images/Most_Optimal_Skills_for_Data_Analysts_in_the_US_with_Coloring_by_Technology.png)  
-*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in the US with color labels for technology.*
+![Most Optimal Skills for Data Analysts in the IL with Coloring by Technology](images/Most_Optimal_Skills_for_Data_Analysts_in_the_US_with_Coloring_by_Technology.png)  
+*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in IL with color labels for technology.*
 
 #### Insights:
 
