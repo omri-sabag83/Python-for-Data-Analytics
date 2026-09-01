@@ -201,23 +201,23 @@ View my notebook with detailed steps here: [5_Optimal_Skills](5_Optimal_Skills.i
 from adjustText import adjust_text
 import matplotlib.pyplot as plt
 
-plt.scatter(df_DA_skills_high_demand['skill_percent'], df_DA_skills_high_demand['median_salary'])
+plt.scatter(df_country_da_skills_high_demand['skill_percent'], df_country_da_skills_high_demand['median_salary'])
 plt.show()
 
 ```
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in the Israel](images/Most_Optimal_Skills_for_Data_Analysts_in_the_US.png)    
+![Most Optimal Skills for Data Analysts in the Israel](03_Project/images/most_optimal_skills_for_IL_data_analysts.png)    
 *A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in IL.*
 
 #### Insights:
 
-- The skill `Oracle` appears to have the highest median salary of nearly $97K, despite being less common in job postings. This suggests a high value placed on specialized database skills within the data analyst profession.
+- The skill `elasricsearch` is the sole represantative of databases tech, and while pays very well it is not in high demand.
 
-- More commonly required skills like `Excel` and `SQL` have a large presence in job listings but lower median salaries compared to specialized skills like `Python` and `Tableau`, which not only have higher salaries but are also moderately prevalent in job listings.
+- interesting to compare `NoSQL` and `SQL`, the first pays quite less than the latter, as well as being much less sought after in terms of demand.
 
-- Skills such as `Python`, `Tableau`, and `SQL Server` are towards the higher end of the salary spectrum while also being fairly common in job listings, indicating that proficiency in these tools can lead to good opportunities in data analytics.
+- Skills such as `Python`, `R`, and `Go` are towards the higher end of the salary spectrum, something that charachterizes programming tech in general.
 
 ### Visualizing Different Techonologies
 
@@ -230,7 +230,7 @@ from matplotlib.ticker import PercentFormatter
 
 # Create a scatter plot
 scatter = sns.scatterplot(
-    data=df_DA_skills_tech_high_demand,
+    data=df_country_da_skills_tech_high_demand,
     x='skill_percent',
     y='median_salary',
     hue='technology',  # Color by technology
@@ -243,7 +243,7 @@ plt.show()
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in the IL with Coloring by Technology](images/Most_Optimal_Skills_for_Data_Analysts_in_the_US_with_Coloring_by_Technology.png)  
+![Most Optimal Skills for Data Analysts in the IL with Coloring by Technology](03_Project/images/most_optimal_skills_for_IL_data_analysts_colored.png)  
 *A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in IL with color labels for technology.*
 
 #### Insights:
