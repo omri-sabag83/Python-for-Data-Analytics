@@ -1,0 +1,30 @@
+# Python dependencies for this project.
+# Versions are pinned ("==") to exactly what the analysis was built and tested
+# with, so anyone (including future you) recreates the same environment.
+#
+# Setup:
+#   python -m venv .venv
+#   source .venv/bin/activate      # Windows: .venv\Scripts\activate
+#   pip install -r requirements.txt
+#
+# Tested with Python 3.11.
+
+# --- Core data manipulation & analysis ---
+pandas==2.3.1
+
+# --- Visualization ---
+matplotlib==3.10.0
+seaborn==0.13.2
+adjustText==1.4.0        # non-overlapping point labels in the scatter plots (notebook 5)
+
+# --- Data source ---
+datasets==3.3.2          # Hugging Face loader for the 'lukebarousse/data_jobs' dataset
+
+# --- Local data cache ---
+pyarrow==19.0.0          # lets pandas read/write the cached .parquet file
+
+# --- Running the notebooks ---
+jupyterlab==4.3.4        # `jupyter lab` to open the notebooks in a browser
+ipykernel==6.29.5        # notebook kernel (also used by the VS Code / Cursor notebook UI)
+
+# numpy is installed automatically as a pandas dependency (expected: numpy 2.x).

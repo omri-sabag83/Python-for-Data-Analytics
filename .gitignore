@@ -1,1 +1,17 @@
+# macOS / OS files
 .DS_Store
+
+# Python bytecode cache (regenerated on import)
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter notebook checkpoints (autosaves)
+.ipynb_checkpoints/
+
+# Locally generated data cache (rebuilt by load_data.py from Hugging Face)
+data/
