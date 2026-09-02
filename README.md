@@ -25,30 +25,51 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 - **Visual Studio Code:** My go-to for executing my Python scripts.
 - **Git & GitHub:** Essential for version control and sharing my Python code and analysis, ensuring collaboration and project tracking.
 
+# Setup & Reproduce
+
+To run this analysis yourself you need **Python 3.11** (the version it was tested with) and **Git**.
+
+```bash
+# 1. Clone the repo and move into it
+git clone <your-repo-url>
+cd <repo-folder>
+
+# 2. Create and activate an isolated virtual environment
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+
+# 3. Install the pinned dependencies
+pip install -r requirements.txt
+
+# 4. Launch Jupyter
+jupyter lab
+```
+
+Then open the notebooks in [`03_Project/`](03_Project/) and run them in order, `1_EDA_Intro` through `5_Optimal_Skills`. (Alternatively, open the folder in VS Code and run the notebooks with the Jupyter extension, selecting `.venv` as the kernel.)
+
+The first notebook you run calls `load_data()` from [`03_Project/load_data.py`](03_Project/load_data.py). On the first call it downloads the [`lukebarousse/data_jobs`](https://huggingface.co/datasets/lukebarousse/data_jobs) dataset from Hugging Face, cleans it, and caches the result to `03_Project/data/data_jobs.parquet`. Every later call reads that local cache, so the download only happens once.
+
 # Data Preparation and Cleanup
 
 This section outlines the steps taken to prepare the data for analysis, ensuring accuracy and usability.
 
 ## Import & Clean Up Data
 
-I start by importing necessary libraries and loading the dataset, followed by initial data cleaning tasks to ensure data quality.
+Each notebook starts by importing the libraries and loading the data. The download and cleaning steps live in a single helper, [`03_Project/load_data.py`](03_Project/load_data.py), so every notebook begins from the same cleaned DataFrame:
 
 ```python
-# Importing Libraries
-import ast
+# Importing libraries
 import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
-from datasets import load_dataset
-import matplotlib.pyplot as plt  
 
-# Loading Data
-dataset = load_dataset('lukebarousse/data_jobs')
-df = dataset['train'].to_pandas()
+from load_data import load_data
 
-# Data Cleanup
-df['job_posted_date'] = pd.to_datetime(df['job_posted_date'])
-df['job_skills'] = df['job_skills'].apply(lambda x: ast.literal_eval(x) if pd.notna(x) else x)
+# Load the cleaned dataset (downloads once, then reads a local cache)
+df = load_data()
 ```
+
+Inside `load_data()` the cleanup converts `job_posted_date` to a real datetime and parses the `job_skills` text (e.g. `"['sql', 'python']"`) into actual Python lists.
 
 ## Filter IL Jobs
 
