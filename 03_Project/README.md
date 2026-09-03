@@ -4,7 +4,7 @@ Welcome to my analysis of the data job market, focusing on data analyst roles. T
 
 The data sourced from [Luke Barousse's Python Course](https://lukebarousse.com/python) which provides a foundation for my analysis, containing detailed information on job titles, salaries, locations, and essential skills. Through a series of Python scripts, I explore key questions such as the most demanded skills, salary trends, and the intersection of demand and salary in data analytics.
 
-> **Note:** this write-up describes the analysis as configured by default — `SELECTED_COUNTRY = "Israel"` and `BENCHMARK_COUNTRY = "United States"` in [`03_Project/config.py`](03_Project/config.py). Point `config.py` at another market and the notebooks re-run against it, but this narrative won't follow automatically.
+> **Note:** this write-up describes the analysis as configured by default — `SELECTED_COUNTRY = "Israel"` and `BENCHMARK_COUNTRY = "United States"` in [`config.py`](config.py). Point `config.py` at another market and the notebooks re-run against it, but this narrative won't follow automatically.
 
 # The Questions
 
@@ -32,7 +32,7 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 To run this analysis yourself you need **Python 3.11** (the version it was tested with) and **Git**.
 
 ```bash
-# 1. Clone the repo and move into it
+# 1. Clone the repo
 git clone <your-repo-url>
 cd <repo-folder>
 
@@ -40,16 +40,19 @@ cd <repo-folder>
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
-# 3. Install the pinned dependencies
+# 3. Install the pinned dependencies (requirements.txt is at the repo root)
 pip install -r requirements.txt
 
-# 4. Launch Jupyter
+# 4. Move into this project and launch Jupyter
+cd 03_Project
 jupyter lab
 ```
 
-Then open the notebooks in [`03_Project/`](03_Project/) and run them in order, `1_EDA_Intro` through `5_Optimal_Skills`. (Alternatively, open the folder in VS Code and run the notebooks with the Jupyter extension, selecting `.venv` as the kernel.)
+Then run the notebooks in order, `1_EDA_Intro` through `5_Optimal_Skills`. (Alternatively, open the folder in VS Code and run the notebooks with the Jupyter extension, selecting `.venv` as the kernel.)
 
-The first notebook you run calls `load_data()` from [`03_Project/load_data.py`](03_Project/load_data.py). On the first call it downloads the [`lukebarousse/data_jobs`](https://huggingface.co/datasets/lukebarousse/data_jobs) dataset from Hugging Face, cleans it, and caches the result to `03_Project/data/data_jobs.parquet`. Every later call reads that local cache, so the download only happens once.
+To execute all five end to end from the command line — re-running every notebook and refreshing its saved output in place — run `make run` from this folder (`make clean` strips the outputs again). It just wraps `jupyter nbconvert --execute`, so plain `jupyter nbconvert --to notebook --execute --inplace *.ipynb` works too if you don't have `make`.
+
+The first notebook you run calls `load_data()` from [`load_data.py`](load_data.py). On the first call it downloads the [`lukebarousse/data_jobs`](https://huggingface.co/datasets/lukebarousse/data_jobs) dataset from Hugging Face, cleans it, and caches the result to `data/data_jobs.parquet`. Every later call reads that local cache, so the download only happens once.
 
 # Data Preparation and Cleanup
 
@@ -57,7 +60,7 @@ This section outlines the steps taken to prepare the data for analysis, ensuring
 
 ## Import & Clean Up Data
 
-Each notebook starts by importing the libraries and loading the data. The download and cleaning steps live in a single helper, [`03_Project/load_data.py`](03_Project/load_data.py), so every notebook begins from the same cleaned DataFrame:
+Each notebook starts by importing the libraries and loading the data. The download and cleaning steps live in a single helper, [`load_data.py`](load_data.py), so every notebook begins from the same cleaned DataFrame:
 
 ```python
 # Importing libraries
@@ -75,7 +78,7 @@ Inside `load_data()` the cleanup converts `job_posted_date` to a real datetime a
 
 ## Filter to One Country
 
-The market to analyse is set once in [`03_Project/config.py`](03_Project/config.py) (default: Israel) and every notebook imports it, so the whole analysis retargets from a single place:
+The market to analyse is set once in [`config.py`](config.py) (default: Israel) and every notebook imports it, so the whole analysis retargets from a single place:
 
 ```python
 from config import SELECTED_COUNTRY
@@ -91,7 +94,7 @@ Each Jupyter notebook for this project aimed at investigating specific aspects o
 
 To find the most demanded skills for the top 4 most popular data roles, I filtered to the 4 most common job titles and took the top 5 skills for each. This highlights which skills to pay attention to depending on the role I'm targeting. 
 
-View my notebook with detailed steps here: [2_Skill_Demand](03_Project/2_Skill_Demand.ipynb).
+View my notebook with detailed steps here: [2_Skill_Demand](2_Skill_Demand.ipynb).
 
 ### Visualize Data
 
@@ -108,7 +111,7 @@ plt.show()
 
 ### Results
 
-![Likelihood of Skills Requested in Israeli Job Postings](03_Project/images/top_skills_likelihood_in_IL_job_postings.png)
+![Likelihood of Skills Requested in Israeli Job Postings](images/top_skills_likelihood_in_IL_job_postings.png)
 
 *Bar graphs showing how often each of the top 5 skills appears in postings for the 4 most common roles in the Israeli data job market.*
 
@@ -122,7 +125,7 @@ plt.show()
 
 To find how skills are trending in 2023 for Data Analysts, I filtered data analyst positions and grouped the skills by the month of the job postings. This got me the top skills of data analysts by month, showing how popular skills were throughout 2023.
 
-View my notebook with detailed steps here: [3_Skills_Trend](03_Project/3_Skills_Trend.ipynb).
+View my notebook with detailed steps here: [3_Skills_Trend](3_Skills_Trend.ipynb).
 
 ### Visualize Data
 
@@ -141,7 +144,7 @@ plt.show()
 
 ### Results
 
-![Trending Top Skills for Data Analysts in Israel](03_Project/images/trending_top_skills_for_data_analysts_in_IL.png)  
+![Trending Top Skills for Data Analysts in Israel](images/trending_top_skills_for_data_analysts_in_IL.png)  
 *Line chart of the trending top skills for data analysts in Israel across 2023.*
 
 ### Insights:
@@ -154,7 +157,7 @@ plt.show()
 
 To identify the highest-paying roles and skills, I only got jobs in Israel and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most. 
 
-View my notebook with detailed steps here: [4_Salary_Analysis](03_Project/4_Salary_Analysis.ipynb).
+View my notebook with detailed steps here: [4_Salary_Analysis](4_Salary_Analysis.ipynb).
 
 #### Visualize Data 
 
@@ -169,7 +172,7 @@ plt.show()
 
 #### Results
 
-![Salary Distributions of Data Jobs in Israel](03_Project/images/salary_distribution_of_IL_data_jobs.png)  
+![Salary Distributions of Data Jobs in Israel](images/salary_distribution_of_IL_data_jobs.png)  
 *Box plot visualizing the salary distributions for the Data Analyst/Scientist/Engineer and their respective Senior job titles.*
 
 #### Insights
@@ -203,7 +206,7 @@ plt.show()
 #### Results
 Here's the breakdown of the highest-paid & most in-demand skills for data analysts in Israel:
 
-![The Highest Paid & Most In-Demand Skills for Data Analysts in Israel](03_Project/images/highest_paid_and_most_in_demand_data_skills_in_IL.png)
+![The Highest Paid & Most In-Demand Skills for Data Analysts in Israel](images/highest_paid_and_most_in_demand_data_skills_in_IL.png)
 *Two separate bar graphs visualizing the highest paid skills and most in-demand skills for data analysts in Israel. Each bar is annotated with `n` (postings behind the median); a crimson diamond marks the United States median for that skill.*
 
 #### Insights:
@@ -218,7 +221,7 @@ Here's the breakdown of the highest-paid & most in-demand skills for data analys
 
 To identify the most optimal skills to learn ( the ones that are the highest paid and highest in demand) I calculated the percent of skill demand and the median salary of these skills. To easily identify which are the most optimal skills to learn. 
 
-View my notebook with detailed steps here: [5_Optimal_Skills](03_Project/5_Optimal_Skills.ipynb).
+View my notebook with detailed steps here: [5_Optimal_Skills](5_Optimal_Skills.ipynb).
 
 #### Visualize Data
 
@@ -241,7 +244,7 @@ plt.show()
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in Israel](03_Project/images/most_optimal_skills_for_IL_data_analysts.png)    
+![Most Optimal Skills for Data Analysts in Israel](images/most_optimal_skills_for_IL_data_analysts.png)    
 *A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in Israel. Hollow points joined by a line show the same skills in the United States.*
 
 #### Insights:
@@ -276,7 +279,7 @@ plt.show()
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in Israel with Coloring by Technology](03_Project/images/most_optimal_skills_for_IL_data_analysts_colored.png)  
+![Most Optimal Skills for Data Analysts in Israel with Coloring by Technology](images/most_optimal_skills_for_IL_data_analysts_colored.png)  
 *A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in Israel with color labels for technology.*
 
 #### Insights:

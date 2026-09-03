@@ -7,6 +7,9 @@
 #   source .venv/bin/activate      # Windows: .venv\Scripts\activate
 #   pip install -r requirements.txt
 #
+# Run the whole analysis end to end (executes every notebook in place):
+#   cd 03_Project && make run
+#
 # Tested with Python 3.11.
 #
 # Configuration:
