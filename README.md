@@ -4,11 +4,13 @@ Welcome to my analysis of the data job market, focusing on data analyst roles. T
 
 The data sourced from [Luke Barousse's Python Course](https://lukebarousse.com/python) which provides a foundation for my analysis, containing detailed information on job titles, salaries, locations, and essential skills. Through a series of Python scripts, I explore key questions such as the most demanded skills, salary trends, and the intersection of demand and salary in data analytics.
 
+> **Note:** this write-up describes the analysis as configured by default — `SELECTED_COUNTRY = "Israel"` and `BENCHMARK_COUNTRY = "United States"` in [`03_Project/config.py`](03_Project/config.py). Point `config.py` at another market and the notebooks re-run against it, but this narrative won't follow automatically.
+
 # The Questions
 
 Below are the questions I want to answer in my project:
 
-1. What are the skills most in demand for the top 3 most popular data roles?
+1. What are the skills most in demand for the top 4 most popular data roles?
 2. How are in-demand skills trending for Data Analysts?
 3. How well do jobs and skills pay for Data Analysts?
 4. What are the optimal skills for data analysts to learn? (High Demand AND High Paying) 
@@ -17,7 +19,7 @@ Below are the questions I want to answer in my project:
 
 For my deep dive into the data analyst job market, I harnessed the power of several key tools:
 
-- **Python:** The backbone of my analysis, allowing me to analyze the data and find critical insights.I also used the following Python libraries:
+- **Python:** The backbone of my analysis, allowing me to analyze the data and find critical insights. I also used the following Python libraries:
     - **Pandas Library:** This was used to analyze the data. 
     - **Matplotlib Library:** I visualized the data.
     - **Seaborn Library:** Helped me create more advanced visuals. 
@@ -71,22 +73,23 @@ df = load_data()
 
 Inside `load_data()` the cleanup converts `job_posted_date` to a real datetime and parses the `job_skills` text (e.g. `"['sql', 'python']"`) into actual Python lists.
 
-## Filter IL Jobs
+## Filter to One Country
 
-To focus my analysis on the Israeli job market, I apply filters to the dataset, narrowing down to roles based in the Israel.
+The market to analyse is set once in [`03_Project/config.py`](03_Project/config.py) (default: Israel) and every notebook imports it, so the whole analysis retargets from a single place:
 
 ```python
-selected_country = 'Israel'
-df_country = df[df['job_country'] == selected_country]
+from config import SELECTED_COUNTRY
+
+df_country = df[df['job_country'] == SELECTED_COUNTRY]
 ```
 
 # The Analysis
 
 Each Jupyter notebook for this project aimed at investigating specific aspects of the data job market. Here’s how I approached each question:
 
-## 1. What are the most demanded skills for the top 3 most popular data roles?
+## 1. What are the most demanded skills for the top 4 most popular data roles?
 
-To find the most demanded skills for the top 3 most popular data roles. I filtered out those positions by which ones were the most popular, and got the top 5 skills for these top 3 roles. This query highlights the most popular job titles and their top skills, showing which skills I should pay attention to depending on the role I'm targeting. 
+To find the most demanded skills for the top 4 most popular data roles, I filtered to the 4 most common job titles and took the top 5 skills for each. This highlights which skills to pay attention to depending on the role I'm targeting. 
 
 View my notebook with detailed steps here: [2_Skill_Demand](03_Project/2_Skill_Demand.ipynb).
 
@@ -105,15 +108,15 @@ plt.show()
 
 ### Results
 
-![Likelihood of Skills Requested in the IL Job Postings](03_Project/images/top_skills_likelihood_in_IL_job_postings.png)
+![Likelihood of Skills Requested in Israeli Job Postings](03_Project/images/top_skills_likelihood_in_IL_job_postings.png)
 
-*Bar graph visualizing the salary for the top X data roles and their top Y skills associated with each.*
+*Bar graphs showing how often each of the top 5 skills appears in postings for the 4 most common roles in the Israeli data job market.*
 
 ### Insights:
 
-- SQL is the most requested skill for Data Analysts and Data Scientists, with it in over half the job postings for both roles. For Data Engineers, Python is the most sought-after skill, appearing in 70% of job postings.
-- Data Engineers require more specialized technical skills (AWS, Spark, Airflow) compared to Data Analysts and Data Scientists who are expected to be proficient in more general data management and analysis tools (Excel, Tableau).
-- Python is a versatile skill, highly demanded across all X roles, but most prominently for Data Engineers (69%) and Data Scientists (65%).
+- SQL is the most requested skill for Data Analysts (~70% of postings); for every other role shown, Python is first, peaking at ~69% for Data Engineers and ~65% for Data Scientists.
+- Data Engineers lean on more specialised infrastructure skills (AWS ~42%, Spark ~35%, Airflow ~29%), while Data Analysts skew toward general analysis tools (Tableau ~27%, Excel ~19%).
+- Python is the common thread across all 4 roles; SQL is a strong second everywhere except Data Analyst, where it leads.
 
 ## 2. How are in-demand skills trending for Data Analysts?
 
@@ -139,12 +142,13 @@ plt.show()
 ### Results
 
 ![Trending Top Skills for Data Analysts in Israel](03_Project/images/trending_top_skills_for_data_analysts_in_IL.png)  
-*Bar graph visualizing the trending top skills for data analysts in IL in 2023.*
+*Line chart of the trending top skills for data analysts in Israel across 2023.*
 
 ### Insights:
-- SQL remains the most consistently demanded skill throughout the year, remaining consistent overall.
-- Python coming in as a strong 2nd in demand, trending around the 50% mark.
-- Excel and Tableau trade places quite a few times over the past year, though remain quite similar in demand.
+- SQL is the most in-demand skill in every month of 2023, holding a fairly steady ~60–78% of Data Analyst postings and drifting slightly upward over the year.
+- Python is a clear second, moving in a ~35–56% band with more month-to-month noise than SQL.
+- Tableau and Excel swap third place repeatedly, both in the ~10–36% range; Excel spikes to ~29% in October before falling back near ~11% by December.
+- The lines are built from the normalised `job_title_short` category (~900 Israeli Data Analyst postings) — about 3 times the sample the exact-title filter used previously.
 
 ## 3. How well do jobs and skills pay for Data Analysts?
 
@@ -165,16 +169,16 @@ plt.show()
 
 #### Results
 
-![Salary Distributions of Data Jobs in the IL](03_Project/images/salary_distribution_of_IL_data_jobs.png)  
+![Salary Distributions of Data Jobs in Israel](03_Project/images/salary_distribution_of_IL_data_jobs.png)  
 *Box plot visualizing the salary distributions for the Data Analyst/Scientist/Engineer and their respective Senior job titles.*
 
 #### Insights
 
-- There's a significant variation in salary ranges across different job titles. Senior Data Scientist positions tend to have the highest salary potential, with up to $600K, indicating the high value placed on advanced data skills and experience in the industry.
+- Median pay tracks seniority and specialisation: Senior Scientist/Engineer roles are highest (~$148–158K), then the mid-level Scientist/Engineer roles, with Data Analyst lowest (~$100K).
 
-- The Israel data sample size is that of a few hundreds, causing the data to hardly have any outliers, as it is not diverse enough. This is important to take into account (for any relatively small country/job market, for that matter).
+- Several job titles rest on only a handful of postings (shown as `n=` on the chart), so read the box widths and outliers cautiously; the crimson diamonds mark the United States median for the same role as a reference point.
 
-- The median salaries increase with the seniority and specialization of the roles. Senior roles (Senior Data Scientist, Senior Data Engineer) not only have higher median salaries but also larger differences in typical salaries, reflecting greater variance in compensation as responsibilities increase.
+- Against that US reference the Israeli medians hold up well: the senior roles land within ~2% of the US, while mid-level Data Scientist ($145K vs $130K) and Data Analyst ($100.5K vs $90K) sit ~12% above it — indicative rather than conclusive on samples of n=5–24.
 
 ### Highest Paid & Most Demanded Skills for Data Analysts
 
@@ -184,13 +188,13 @@ Next, I narrowed my analysis and focused only on data analyst roles. I looked at
 
 ```python
 
-fig, ax = plt.subplots(2, 1)  
+fig, ax = plt.subplots(2, 1)
 
-# Top 10 Highest Paid Skills for Data Analysts
+# Highest-paid skills for Data Analysts
 sns.barplot(data=df_country_da_top_pay, x='median', y=df_country_da_top_pay.index, hue='median', ax=ax[0], palette='dark:b_r')
 
-# Top 10 Most In-Demand Skills for Data Analystsr')
-sns.barplot(data=df_country_da_skills, x='median', y=df_country_da_skills.index, hue='median', ax=ax[1], palette='light:b')
+# Most in-demand skills for Data Analysts
+sns.barplot(data=df_country_da_top_skills, x='median', y=df_country_da_top_skills.index, hue='median', ax=ax[1], palette='light:b')
 
 plt.show()
 
@@ -200,15 +204,15 @@ plt.show()
 Here's the breakdown of the highest-paid & most in-demand skills for data analysts in Israel:
 
 ![The Highest Paid & Most In-Demand Skills for Data Analysts in Israel](03_Project/images/highest_paid_and_most_in_demand_data_skills_in_IL.png)
-*Two separate bar graphs visualizing the highest paid skills and most in-demand skills for data analysts in IL.*
+*Two separate bar graphs visualizing the highest paid skills and most in-demand skills for data analysts in Israel. Each bar is annotated with `n` (postings behind the median); a crimson diamond marks the United States median for that skill.*
 
 #### Insights:
 
-- The top graph shows specialized technical skills like `gdpr`, `snowflake`, or `elasticsearch` are associated with higher salaries, some reaching up to $100K, however these are based on a single-digit sample size (huge caveat).
+- Only 3 of the 17 skills in Israeli Data Analyst postings clear the reliability floor (≥ 5 salaried postings): `python` (n=14), `sql` (n=17) and `tableau` (n=6); the other 14 are dropped rather than ranked on one or two data points.
 
-- The bottom graph highlights that foundational skills like `Excel`, `Looker`, and `AWS` are the most in-demand, even though they may not offer the highest salaries. This demonstrates the importance of these core skills for employability in data analysis roles.
+- With so few skills left, the "highest paid" and "most in-demand" lists are identical — all 3 are core toolkit skills, not niche specialities.
 
-- Note that once again, due to the small sample size - more specifically 10 different skills, along with the fact that we've chosen to display top 10 records, means that there is some overlap. That overlap is examplified b the fact the the 2 charts are not laid "nicely" one on top of the other. In other words: the top records of the bottom chart my be higher in value than the bottom records of the top chart.
+- Each of the 3 pays above its United States median: `python` +14% ($111K vs $97.5K), `sql` +10% ($100.5K vs $91K), `tableau` +2% ($95.2K vs $92.9K).
 
 ## 4. What are the most optimal skills to learn for Data Analysts?
 
@@ -219,28 +223,36 @@ View my notebook with detailed steps here: [5_Optimal_Skills](03_Project/5_Optim
 #### Visualize Data
 
 ```python
-from adjustText import adjust_text
-import matplotlib.pyplot as plt
+# sel / bench: one row per skill (skill_percent, median_salary) for
+# SELECTED_COUNTRY and BENCHMARK_COUNTRY respectively
 
-plt.scatter(df_country_da_skills_high_demand['skill_percent'], df_country_da_skills_high_demand['median_salary'])
+plt.scatter(sel['skill_percent'], sel['median_salary'], label=SELECTED_COUNTRY)
+plt.scatter(bench['skill_percent'], bench['median_salary'],
+            facecolors='none', edgecolors='gray', label=BENCHMARK_COUNTRY)
+
+# join each skill's two points so the demand/pay shift is visible
+for s in sel.index:
+    plt.plot([sel.loc[s, 'skill_percent'], bench.loc[s, 'skill_percent']],
+             [sel.loc[s, 'median_salary'], bench.loc[s, 'median_salary']], color='gray', lw=0.8)
+
+plt.legend()
 plt.show()
-
 ```
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in the Israel](03_Project/images/most_optimal_skills_for_IL_data_analysts.png)    
-*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in IL.*
+![Most Optimal Skills for Data Analysts in Israel](03_Project/images/most_optimal_skills_for_IL_data_analysts.png)    
+*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in Israel. Hollow points joined by a line show the same skills in the United States.*
 
 #### Insights:
 
-- The skill `elasricsearch` is the sole represantative of databases tech, and while pays very well it is not in high demand.
+- `sql` and `python` are the stand-out optimal skills: both near the top of the demand axis (~74% and ~61% of postings) and the top of the pay range (~$100.5K and ~$111K).
 
-- interesting to compare `NoSQL` and `SQL`, the first pays quite less than the latter, as well as being much less sought after in terms of demand.
+- Both sit well up and to the right of their United States counterparts — `python` is ~28 points more common and ~$14K better paid in Israel, `sql` ~16 points and ~$9K — so the local market rewards them more, not less.
 
-- Skills such as `Python`, `R`, and `Go` are towards the higher end of the salary spectrum, something that charachterizes programming tech in general.
+- `tableau` is the third reliable skill: ~26% of postings and ~$95K, landing almost exactly on top of its US point.
 
-### Visualizing Different Techonologies
+### Visualizing Different Technologies
 
 Let's visualize the different technologies as well in the graph. We'll add color labels based on the technology (e.g., {Programming: Python})
 
@@ -264,16 +276,16 @@ plt.show()
 
 #### Results
 
-![Most Optimal Skills for Data Analysts in the IL with Coloring by Technology](03_Project/images/most_optimal_skills_for_IL_data_analysts_colored.png)  
-*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in IL with color labels for technology.*
+![Most Optimal Skills for Data Analysts in Israel with Coloring by Technology](03_Project/images/most_optimal_skills_for_IL_data_analysts_colored.png)  
+*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in Israel with color labels for technology.*
 
 #### Insights:
 
-- The scatter plot shows that most of the `programming` skills (colored blue) tend to cluster at higher salary levels compared to other categories, indicating that programming expertise might offer greater salary benefits within the data analytics field.
+- After the reliability floor only two technology groups remain: `programming` (`sql`, `python`) and `analyst_tools` (`tableau`).
 
-- The database skills (colored orange), such as Oracle and SQL Server, are associated with some of the highest salaries among data analyst tools. This indicates a significant demand and valuation for data management and manipulation expertise in the industry.
+- The two programming skills sit at the top-right — highest demand and highest pay — while the single analyst-tool skill, `tableau`, trails on both axes.
 
-- Analyst tools (colored green), including Tableau and Power BI, are prevalent in job postings and offer competitive salaries, showing that visualization and data analysis software are crucial for current data roles. This category not only has good salaries but is also versatile across different types of data tasks.
+- Database, cloud and library skills all fall below the 5-posting floor for Israeli Data Analysts, so the "optimal" set here is effectively the core programming pair plus Tableau; a larger market (via `config.py`) would surface a richer picture.
 
 # What I Learned
 
@@ -288,7 +300,7 @@ Throughout this project, I deepened my understanding of the data analyst job mar
 
 This project provided several general insights into the data job market for analysts:
 
-- **Skill Demand and Salary Correlation**: There is a clear correlation between the demand for specific skills and the salaries these skills command. Advanced and specialized skills like Python and Oracle often lead to higher salaries.
+- **Skill Demand and Salary Correlation**: There is a clear link between how often a skill is asked for and what it pays. For Israeli Data Analysts the programming skills (SQL, Python) sit at the top of both axes, and each pays above its United States equivalent.
 - **Market Trends**: There are changing trends in skill demand, highlighting the dynamic nature of the data job market. Keeping up with these trends is essential for career growth in data analytics.
 - **Economic Value of Skills**: Understanding which skills are both in-demand and well-compensated can guide data analysts in prioritizing learning to maximize their economic returns.
 
