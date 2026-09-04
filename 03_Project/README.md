@@ -134,7 +134,10 @@ View my notebook with detailed steps here: [3_Skills_Trend](3_Skills_Trend.ipynb
 from matplotlib.ticker import PercentFormatter
 
 df_plot = df_country_percent.iloc[:, :top_n_skills]
-sns.lineplot(data=df_plot, dashes=False, legend='full', palette='tab10')
+
+# Brand colors so each line reads the way the tool itself is shown elsewhere
+skill_colors = {'sql': '#34495E', 'excel': '#217346', 'power bi': '#F2C811', 'python': '#306998'}
+sns.lineplot(data=df_plot, dashes=False, legend='full', palette=skill_colors)
 
 plt.gca().yaxis.set_major_formatter(PercentFormatter(decimals=0))
 
@@ -264,13 +267,17 @@ Let's visualize the different technologies as well in the graph. We'll add color
 ```python
 from matplotlib.ticker import PercentFormatter
 
+# Give the cloud group Azure's real brand blue, and keep programming off blue
+# so it doesn't collide with the blue used for the UK elsewhere in this README
+technology_colors = {'programming': '#5B2C6F', 'analyst_tools': '#E67E22', 'cloud': '#0078D4'}
+
 # Create a scatter plot
 scatter = sns.scatterplot(
     data=df_country_da_skills_tech_high_demand,
     x='skill_percent',
     y='median_salary',
     hue='technology',  # Color by technology
-    palette='bright',  # Use a bright palette for distinct colors
+    palette=technology_colors,  # Use brand-informed colors for distinct, meaningful groups
     legend='full'  # Ensure the legend is shown
 )
 plt.show()
