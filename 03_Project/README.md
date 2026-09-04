@@ -117,9 +117,9 @@ plt.show()
 
 ### Insights:
 
-- The four most common UK data roles are Data Engineer, Data Analyst, Data Scientist and Senior Data Engineer. SQL leads for Data Engineers (~60%) and Data Analysts (~43%); Python leads for Data Scientists (~69%) and Senior Data Engineers (~65%).
-- The engineering roles lean on cloud/infrastructure skills — Azure ~40–41%, AWS ~33–42%, Spark ~18–23% — while Data Analysts skew toward BI and office tools: Excel ~41%, Power BI ~27%, Tableau ~16%.
-- SQL and Python are the common thread across all 4 roles; for Data Analysts, Python sits only fourth (~20%), behind SQL, Excel and Power BI.
+- The four most common UK data roles are Data Engineer, Data Analyst, Data Scientist and Senior Data Engineer. SQL leads for Data Engineers (60%) and Data Analysts (43%); Python leads for Data Scientists (69%) and Senior Data Engineers (65%).
+- The engineering roles lean on cloud/infrastructure skills — Azure 40–41%, AWS 33–42%, Spark 18–23% — while Data Analysts skew toward BI and office tools: Excel 41%, Power BI 27%, Tableau 16%.
+- SQL and Python are the common thread across all 4 roles; for Data Analysts, Python sits only fourth (20%), behind SQL, Excel and Power BI.
 
 ## 2. How are in-demand skills trending for Data Analysts?
 
@@ -148,9 +148,9 @@ plt.show()
 *Line chart of the trending top skills for data analysts in the UK across 2023.*
 
 ### Insights:
-- SQL and Excel run neck-and-neck all year, both roughly in a ~38–47% band and trading the top spot from month to month (Excel actually leads in February at ~46%).
-- Power BI holds a steady third place, ~24–33% of Data Analyst postings, with a mid-year bump in July.
-- Python is a clear fourth, ~16–26%, drifting upward over the second half of the year — from ~16% in spring to ~23–26% by October–December.
+- SQL and Excel run neck-and-neck all year, both roughly in a 38–47% band and trading the top spot from month to month (Excel actually leads in February at 46%).
+- Power BI holds a steady third place, 24–33% of Data Analyst postings, with a mid-year bump in July.
+- Python is a clear fourth, 16–26%, drifting upward over the second half of the year — from 16% in spring to 23–26% by October–December.
 - The lines are built from the normalised `job_title_short` category — about 10,500 UK Data Analyst postings across 2023.
 
 ## 3. How well do jobs and skills pay for Data Analysts?
@@ -177,11 +177,11 @@ plt.show()
 
 #### Insights
 
-- Median pay tracks seniority: Senior Data Scientist (~$157K) and Senior Data Engineer (~$148K) are highest, then Senior Data Analyst (~$111K) and Data Engineer (~$110K), Data Scientist (~$105K), with Data Analyst lowest (~$88K).
+- Median pay tracks seniority: Senior Data Scientist ($157K) and Senior Data Engineer ($148K) are highest, then Senior Data Analyst ($111K) and Data Engineer ($110K), Data Scientist ($105K), with Data Analyst lowest ($88K).
 
 - Sample sizes are healthier than a thin market but still modest at the senior end — `n` ranges from 8 (Senior Data Analyst) to 75 (Data Scientist), shown on the chart; the crimson diamonds mark the United States median for the same role as a reference point.
 
-- Against that US reference, the UK senior roles land within ~2% of the US ($157K vs $155K, $148K vs $150K, $111K vs $110K). The mid-level roles sit **below** the US: Data Engineer $110K vs $125K (~−12%), Data Scientist $105K vs $130K (~−19%), Data Analyst $87.8K vs $90K (~−3%).
+- Against that US reference, the UK senior roles land within 2% of the US ($157K vs $155K, $148K vs $150K, $111K vs $110K). The mid-level roles sit **below** the US: Data Engineer $110K vs $125K (−12%), Data Scientist $105K vs $130K (−19%), Data Analyst $87.8K vs $90K (−3%).
 
 ### Highest Paid & Most Demanded Skills for Data Analysts
 
@@ -213,9 +213,9 @@ Here's the breakdown of the highest-paid & most in-demand skills for data analys
 
 - 12 of the 62 skills in UK Data Analyst postings clear the reliability floor (≥ 5 salaried postings); the other 50 are dropped rather than ranked on one or two data points.
 
-- With 12 skills left, the "highest paid" and "most in-demand" lists genuinely differ: the best-paid are `tableau` ($100.5K), `sql` ($98.5K), `looker` ($96K) and `azure` ($92.5K), while the most in-demand are `sql` (~46% of postings), `excel` (~40%), `python` (~35%) and `tableau` (~18%).
+- With 12 skills left, the "highest paid" and "most in-demand" charts turn out to show the same 10 skills in the same order: dropping the 2 rarest (`word` n=5, `outlook` n=6) also happens to drop the 2 lowest-paid, so both filters leave `tableau`, `sql`, `looker`, `azure`, `power bi`, `python`, `sas`, `r`, `excel` and `go` either way — led by `tableau` ($100.5K) and `sql` ($98.5K).
 
-- Against the United States median, only `tableau` and `sql` pay more in the UK (both ~+8%). Everything else pays less — `python` ~−9%, `excel` ~−11%, `r` ~−17% — and the office tools `word` (~−29%) and `outlook` (~−33%) are well below.
+- Against the United States median, only `tableau` and `sql` pay more in the UK (both +8%). Everything else pays less — `python` −9%, `excel` −11%, `r` −17% — and the office tools `word` (−29%) and `outlook` (−33%) are well below.
 
 ## 4. What are the most optimal skills to learn for Data Analysts?
 
@@ -249,11 +249,11 @@ plt.show()
 
 #### Insights:
 
-- `sql` is the stand-out optimal skill: the most in demand (~46% of postings) and near the top of the pay range (~$98.5K). `tableau` is the best-paid reliable skill (~$100.5K) but only ~18% of postings.
+- `sql` is the stand-out optimal skill: the most in demand (46% of postings) and near the top of the pay range ($98.5K). `tableau` is the best-paid reliable skill ($100.5K) but only 18% of postings.
 
-- `excel` and `python` are common (~40% and ~35% of postings) but mid-pack on pay (~$75.5K and ~$89K).
+- `excel` and `python` are common (40% and 35% of postings) but mid-pack on pay ($75.5K and $89K).
 
-- Unlike a market that rewards these skills above the US, most UK points sit **below and to the left** of their United States counterparts. `sql` and `tableau` are the only two that clear their US pay marks (~+8% each); `python`, `excel`, `r` and the rest trail the US on pay, and several also on demand share.
+- Unlike a market that rewards these skills above the US, most UK points sit **below and to the left** of their United States counterparts. `sql` and `tableau` are the only two that clear their US pay marks (+8% each); `python`, `excel`, `r` and the rest trail the US on pay, and several also on demand share.
 
 ### Visualizing Different Technologies
 
@@ -288,7 +288,7 @@ plt.show()
 
 - The best demand/pay corner is held by `sql` (programming) and `tableau` (analyst_tools); the remaining analyst tools (`excel`, `power bi`, `looker`) and programming skills (`python`, `r`, `go`) cluster lower on pay.
 
-- Cloud appears as a single point — `azure`, ~8% of postings and ~$92K — so cloud and database specialisation is still a small slice of the UK Data Analyst market.
+- Cloud appears as a single point — `azure`, 8% of postings and $92K — so cloud and database specialisation is still a small slice of the UK Data Analyst market.
 
 # What I Learned
 
