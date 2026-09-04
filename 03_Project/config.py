@@ -7,7 +7,7 @@ defaults below run the project as-is - nothing here needs changing to get output
 
 # Job market the analysis focuses on. Must match a value in the dataset's
 # 'job_country' column (e.g. "Israel", "United States", "United Kingdom", "India").
-SELECTED_COUNTRY = "Israel"
+SELECTED_COUNTRY = "United Kingdom"
 
 # A larger, more mature market shown alongside SELECTED_COUNTRY for context
 # (the benchmark diamonds / connector points on the salary charts in notebooks 4-5).
