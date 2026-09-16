@@ -86,6 +86,20 @@ from config import SELECTED_COUNTRY
 df_country = df[df['job_country'] == SELECTED_COUNTRY]
 ```
 
+# Why the United Kingdom
+
+Israel was the original market for this project, but Israeli postings almost never list a salary — and two of the four questions above depend on salary data. Before committing to a market, I checked whether postings that list a salary still track the overall ranking, for both the country and the role this project is about.
+
+<img src="images/country_rank_shift.png" alt="Country Rank Shift" width="620">
+
+*The United Kingdom holds a stable top-5 rank (#3 → #5) whether ranked by all postings or only postings with a salary listed; Israel (#33) stays outside the top 20 either way.*
+
+<img src="images/job_title_rank_shift.png" alt="Job Title Rank Shift" width="620">
+
+*Data Analyst — the role this project targets — drops only from #1 to a still-solid #2 worldwide once restricted to salary-listed postings, confirming enough clean salary data exists for the analysis ahead.*
+
+The United Kingdom is the largest market, after the United States, that holds up once salary coverage is factored in — the reasoning behind it lives in [1_EDA_Intro.ipynb](1_EDA_Intro.ipynb).
+
 # The Analysis
 
 Each Jupyter notebook for this project aimed at investigating specific aspects of the data job market. Here’s how I approached each question:
